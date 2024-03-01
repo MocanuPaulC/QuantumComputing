@@ -4,7 +4,7 @@ from abc import abstractmethod
 from QRL.agent.episode import Episode
 from QRL.agent.percept import Percept
 from QRL.environment.environment import Environment
-from QRL.learning.approximate.deep_qlearning import DeepQLearning
+from QRL.learning.approximate.deep_qlearning import DeepQLearning, TorchDeepQLearning
 from QRL.learning.learningstrategy import LearningStrategy
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
@@ -48,13 +48,14 @@ class Agent:
 
 class QuantumAgent(Agent):
 
-    def __init__(self, render: bool, environment: Environment, learning_strategy: DeepQLearning,
+    def __init__(self, render: bool, environment: Environment, learning_strategy: TorchDeepQLearning,
                  n_episodes=500) -> None:
         super().__init__(environment, learning_strategy, n_episodes)
         self.cum_rewards_per_episode = []
         self.ep_cum_rewards = 0
         self.render = render
-        self.run_animation()
+        # self.run_animation()
+        self.num_episodes = n_episodes
 
 
     @property
@@ -79,19 +80,19 @@ class QuantumAgent(Agent):
             axs[0].set_title('Percepts per Episode')
             axs[0].set_xlabel('Episodes')
             axs[0].set_ylabel('Average Reward')
-            axs[0].set_xlim(0, 500)
-            axs[0].set_ylim(0, 500)
+            axs[0].set_xlim(0, self.n_episodes)
+            axs[0].set_ylim(0, 1000)
 
             axs[1].set_title('Average percepts per Episode')
             axs[1].set_xlabel('Episodes')
             axs[1].set_ylabel('Success Rate')
-            axs[1].set_xlim(0, 500)
-            axs[1].set_ylim(0, 500)
+            axs[1].set_xlim(0, self.n_episodes)
+            axs[1].set_ylim(0, 1000)
 
             axs[2].set_title('Loss')
             axs[2].set_xlabel('Episodes')
             axs[2].set_ylabel('Loss')
-            axs[2].set_xlim(0, 500)
+            axs[2].set_xlim(0, self.n_episodes)
             axs[2].set_ylim(0, 1)
             return [lines["reward"], lines["success"], lines["loss"]]
 
@@ -126,6 +127,7 @@ class QuantumAgent(Agent):
         # as longs as the agents hasn't reached the maximum number of episodes
         # This is the same as for episode in range(self.n_episodes)
         while not self.done:
+            print(f"episode: {self.episode_count[-1]}")
             total_training_rewards = 0
             # start a new episode
             episode = Episode(self.env)
