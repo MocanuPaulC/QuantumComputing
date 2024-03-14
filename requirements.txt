@@ -64,7 +64,6 @@ jupyterlab==4.0.12
 jupyterlab_pygments==0.3.0
 jupyterlab_server==2.25.2
 jupyterlab_widgets==3.0.10
-keras==2.15.0
 kiwisolver==1.4.5
 libclang==16.0.6
 Markdown==3.5.2
@@ -174,5 +173,5 @@ websocket-client==1.7.0
 websockets==12.0
 Werkzeug==3.0.1
 widgetsnbextension==4.0.10
-keras~=3.0.5
+keras~=2.15.0
 wrapt==1.14.1
