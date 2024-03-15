@@ -54,7 +54,6 @@ This architecture is suggested by Skolik et al. in their paper on the quantum ag
 For the Rx gates, we define the following method:
 
 ```python
-import qiskit as qk
 
 def input_parameters(inputs, num_qubits):
 
@@ -124,7 +123,6 @@ On the other hand, the sampler is focused on generating bitstrings that represen
 With this in mind, the obvious choice for our use case was the sampler primitive. 
 
 ```python
-from qiskit.primitives import Sampler
 
 # Select the number of qubits equal to the number of inputs in the environment
 num_qubits = 4
@@ -240,7 +238,14 @@ model = torch.nn.Sequential(encoding,quantum_nn, exp_val)
 ```
 
 ### Environment setup
-The environment setup, specifically the epsilon-greedy policy, sampling, and iterative code have not been taken into consideration as they do not represent the main focus of this article.
+
+The environment used in this experiment was the Cartpole-v0 from OpenAI Gymnasium.
+It has a continuous state space of 4 variables and an discrete action space of 2.
+We used the epsilon-greedy policy to sample the actions and the experience replay buffer to store the experiences and sample them for training the model.
+The train method utilizes the Adam optimizer and the Average Mean Squared Error to decrease the loss.
+
+The code can be found [here](#link-to-github) 
+
 
 ### Result
 
