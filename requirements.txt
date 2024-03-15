@@ -1,4 +1,5 @@
 absl-py==2.1.0
+annotated-types==0.6.0
 anyio==4.2.0
 appnope==0.1.4
 argon2-cffi==23.1.0
@@ -17,7 +18,7 @@ cffi==1.16.0
 charset-normalizer==3.3.2
 comm==0.2.1
 contourpy==1.2.0
-cryptography==42.0.3
+cryptography==42.0.5
 cycler==0.12.1
 debugpy==1.8.1
 decorator==5.1.1
@@ -63,7 +64,6 @@ jupyterlab==4.0.12
 jupyterlab_pygments==0.3.0
 jupyterlab_server==2.25.2
 jupyterlab_widgets==3.0.10
-keras==2.15.0
 kiwisolver==1.4.5
 libclang==16.0.6
 Markdown==3.5.2
@@ -81,7 +81,7 @@ networkx==3.2.1
 notebook==7.0.8
 notebook_shim==0.2.3
 ntlm-auth==1.5.0
-numpy==1.26.4
+numpy==1.23.5
 oauthlib==3.2.2
 opencv-python==4.9.0.80
 opt-einsum==3.3.0
@@ -104,6 +104,8 @@ pure-eval==0.2.2
 pyasn1==0.5.1
 pyasn1-modules==0.3.0
 pycparser==2.21
+pydantic==2.6.3
+pydantic_core==2.16.3
 Pygments==2.17.2
 PyJWT==2.8.0
 pylatexenc==2.10
@@ -115,14 +117,14 @@ python-json-logger==2.0.7
 pytz==2024.1
 PyYAML==6.0.1
 pyzmq==25.1.2
-qiskit==0.46.0
+qiskit==1.0.2
 qiskit-aer==0.13.3
-qiskit-algorithms==0.2.2
-qiskit-ibm-provider==0.9.0
-qiskit-ibm-runtime==0.19.1
+qiskit-algorithms==0.3.0
+qiskit-ibm-provider==0.10.0
+qiskit-ibm-runtime==0.21.1
 qiskit-ibmq-provider==0.20.2
-qiskit-machine-learning==0.7.1
-qiskit-optimization==0.6.0
+qiskit-machine-learning==0.7.2
+qiskit-optimization==0.6.1
 qiskit-terra==0.46.0
 qtconsole==5.5.1
 QtPy==2.4.1
@@ -171,4 +173,5 @@ websocket-client==1.7.0
 websockets==12.0
 Werkzeug==3.0.1
 widgetsnbextension==4.0.10
+keras~=2.15.0
 wrapt==1.14.1
