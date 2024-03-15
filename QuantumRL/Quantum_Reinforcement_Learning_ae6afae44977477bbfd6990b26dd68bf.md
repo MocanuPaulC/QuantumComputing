@@ -17,7 +17,7 @@
 4. [Conclusion](#conclusion)
 
 
-# **Introduction**
+## Introduction
 
 In the rapidly evolving field of artificial intelligence (AI) and machine learning, reinforcement learning (RL) emerges as a powerful paradigm, enabling algorithms to learn optimal actions through trial and error interactions with the environment. Classical reinforcement learning has achieved remarkable successes, from mastering complex games to driving autonomous vehicles.
 
@@ -26,33 +26,30 @@ In contrast, quantum computing utilizes principles of quantum mechanics to proce
 By leveraging phenomena like superposition and entanglement, it has the potential to revolutionize fields such as cryptography, material science, and complex system simulations. Essentially, it opens up new possibilities for solving problems that are currently infeasible for classical computing.
 
 
-# **Classical Reinforcement Learning: An Overview**
+## Classical Reinforcement Learning: An Overview
 
 At its core, classical reinforcement learning involves an agent learning to make decisions by interacting with its environment. The agent performs actions, observes the outcomes and rewards, and adjusts its strategy to maximize cumulative rewards over time. 
 
-![Figure 1: Reinforcement learning overview](./RL.png)
+![Reinforcement learning overview](./RL.png)
 
-Figure 1: Reinforcement learning overview
 
 This learning process involves evaluating state-action pairs to deduce the action that yields the highest reward, a challenge known as the policy optimization problem. 
 
 A popular example illustrating RL's principles is the CartPole problem, where an agent learns to balance a pole on a moving cart, a seemingly simple yet complex task that requires understanding and reacting to dynamic environmental states.
 
-# **Quantum Reinforcement Learning**
+## Quantum Reinforcement Learning
 
-## **QRL Introduction**
+### QRL Introduction
 
 Quantum reinforcement learning (QRL) integrates quantum mechanics principles, such as superposition and entanglement, with reinforcement learning strategies. It exploits the parallel processing capabilities and interconnected nature of quantum computing to efficiently manage and analyze complex, high-dimensional data. This methodology is especially advantageous for addressing challenges with expansive state and action spaces, exemplified by scenarios in OpenAI Gym's simulated environments. Anticipated applications of QRL suggest a future where quantum-powered agents can navigate and resolve tasks with remarkable efficiency and speed, opening new avenues for advanced computational problem-solving.
 
-## **Quantum circuit**
+### Quantum circuit
 
-The backbone of quantum reinforcement learning is the quantum circuit, a sequence of quantum gates designed to perform computations. In our approach, we utilize parametrized Ry and Rz gates along with cyclical entanglement to model the decision-making processes utilizing weighted parameters. The Rx gates adjust the quantum states based on input parameters, which represent the agent's environment. Cyclical entanglement, where each qubit is entangled with its neighbor in a circular fashion, enhances the circuit's ability to capture complex correlations between actions and outcomes. This structure allows the quantum circuit to serve as a sophisticated model for evaluating actions within an RL framework.
+The backbone of quantum reinforcement learning is the quantum circuit, a sequence of quantum gates designed to perform computations. In our approach, we utilize parametrized Ry and Rz gates along with cyclical entanglement to model the decision-making processes utilizing weighted parameters. The Rx gates adjust the quantum states based on input parameters, which represent the agent's environment. Cyclical entanglement, where each qubit is entangled with its neighbor in a circular manner, enhances the circuit's ability to capture complex correlations between actions and outcomes. This structure allows the quantum circuit to serve as a sophisticated model for evaluating actions within an RL framework.
 
 This architecture is suggested by Skolik et al. in their paper on the quantum agents in the gym. While it is prone to fail upon usage of increased amounts of qubits and layers, this does not concern us due to the small nature of the environment.
 
-![Figure 2: A 5 layer quantum circuit based on the Skolik et al. example](./layered_model.png)
-
-Figure 2: A 5 layer quantum circuit based on the Skolik et al. example
+![A 5 layer quantum circuit based on the Skolik et al. example](./layered_model.png)
 
 For the Rx gates, we define the following method:
 
@@ -116,7 +113,7 @@ def parametrized_circuit(num_qubits = 4, reps = 2, insert_barriers = True, meas 
 
 These two methods help us create the quantum circuit which will be given to the primitive in the following section.
 
-## **Sampler vs Estimator**
+### Sampler vs Estimator
 
 Since the deprecation of the `OpFlow` and `QuantumInstance` in Qiskit, a big problem was figuring out the primitive needed in order to achieve your goal. The *estimator* and *sampler* primitives in Qiskit cater to distinct aspects of quantum computing.
 
@@ -148,13 +145,13 @@ qnn = SamplerQNN(sampler=sampler,circuit=qc, input_params=inputs, weight_params=
 
 ```
 
-## **Hybrid nature of the model**
+### Hybrid nature of the model
 
-The culmination of our approach is a hybrid quantum-classical neural network, where quantum computations are embedded within a classical neural network architecture. This hybrid model is designed to process inputs from the RL environment, perform complex computations using the quantum layer, and translate the quantum outputs back into classical information to inform the agent's decisions.One other component which plays a pivotal role is the `TorchConnector` from Qiskit Machine Learning plays a pivotal role in this process, bridging the gap between quantum operations and the PyTorch-based neural network. This hybrid approach represents a significant step forward in creating AI systems that can harness the unique capabilities of quantum computing to address the challenges of reinforcement learning.
+The culmination of our approach is a hybrid quantum-classical neural network, where quantum computations are embedded within a classical neural network architecture. This hybrid model is designed to process inputs from the RL environment, perform complex computations using the quantum layer, and translate the quantum outputs back into classical information to inform the agent's decisions. One other component which plays a pivotal role is the `TorchConnector` from Qiskit Machine Learning, it bridges the gap between quantum operations and the PyTorch-based neural network. This hybrid approach represents a significant step forward in creating AI systems that can harness the unique capabilities of quantum computing to address the challenges of reinforcement learning.
 
-### Defining the classical layers
+#### Defining the classical layers
 
-Two essential components in this integration are the **`encoding_layer`** and **`exp_val_layer`**. The **`encoding_layer`**, a subclass of **`torch.nn.Module`**, is designed to encode classical data into a quantum circuit simulation. This is achieved by applying parameterized rotations to the input data, a process facilitated by weights initialized between -1 and 1 for each qubit. The forward method of this layer utilizes these weights along with an arctangent function to simulate the encoding process on a quantum register. 
+Two essential components in this integration are the `encoding_layer` and `exp_val_layer`. The `encoding_layer`, a subclass of `torch.nn.Module`, is designed to encode classical data into a quantum circuit simulation. This is achieved by applying parameterized rotations to the input data, a process facilitated by weights initialized between -1 and 1 for each qubit. The forward method of this layer utilizes these weights along with an arctangent function to simulate the encoding process on a quantum register. 
 
 ```python
 
@@ -180,7 +177,7 @@ class encoding_layer(torch.nn.Module):
 
 ```
 
-On the other hand, the **`exp_val_layer`** focuses on calculating expected values within a quantum simulation. Upon initialization, it sets the size of the action space and initializes weights between 35 and 45, while also defining specific masks for calculating expectation values for quantum operations. Its forward method effectively computes these expected values, catering to both individual samples and batches by applying weights and normalizations to the outputs. 
+On the other hand, the `exp_val_layer` focuses on calculating expected values within a quantum simulation. Upon initialization, it sets the size of the action space and initializes weights between 35 and 45, while also defining specific masks for calculating expectation values for quantum operations. Its forward method effectively computes these expected values, catering to both individual samples and batches by applying weights and normalizations to the outputs. 
 
 ```python
         
@@ -221,11 +218,11 @@ class exp_val_layer(torch.nn.Module):
 
 These layers represent the preprocessing and postprocessing steps essential for bridging classical computing techniques with quantum computational processes, illustrating a promising avenue for enhancing the capabilities of quantum neural networks.
 
-### Hybrid Quantum-Classical Deep Q-Network
+#### Hybrid Quantum-Classical Deep Q-Network
 
 We've gathered all the components required to assemble a hybrid quantum-classical neural network designed to tackle the CartPole challenge.
 
-### Complete Model
+#### Complete Model
 
 The final hybrid model is constructed by sequentially combining the three layers:
 `model` = `encoding_layer` --> `quantum_layer` --> `exp_val_layer`
@@ -242,18 +239,19 @@ exp_val = exp_val_layer()
 model = torch.nn.Sequential(encoding,quantum_nn, exp_val)
 ```
 
-## Environment setup
+### Environment setup
 The environment setup, specifically the epsilon-greedy policy, sampling, and iterative code have not been taken into consideration as they do not represent the main focus of this article.
 
-## Result
+### Result
 
 The model got trained and managed to surpass 200 steps in an episode but ultimately didn’t achieve an average of at least 195 steps per episode
 
-![Figure 3: A line graph showing the increasing amount of rewards as the model learns from the experienced episodes](./result_graph.png)
+![A line graph showing the increasing amount of rewards as the model learns from the experienced episodes](./result_graph.png)
 
-Figure 3: A line graph showing the increasing amount of rewards as the model learns from the experienced episodes
+## Conclusion
 
-# **Conclusion**
-
-While there is a lot of promise in quantum computing and its applications in machine learning. It is quite obvious to us that it is not a mature technology yet and does not provide a solid base for developing proper solutions yet. During our experience with this technology, we encountered a mountain of deprecated code with no clear substitution. Furthermore, the abstractions provided by qiskit seem to complicate the process instead of making it easier for a person with less knowledge.
-To conclude, amount of knowledge regarding quantum physics and mathematics is needed to fully comprehend the inner workings of the code.  
+While there is a lot of promise in quantum computing and its applications in machine learning,
+it is quite obvious to us that it is not a mature technology yet and does not provide a solid base for developing proper solutions. 
+During our experience with this technology, we encountered a mountain of deprecated code with no clear substitution. 
+Furthermore, the abstractions provided by qiskit seem to complicate the process instead of making it easier for a person with less knowledge.
+To conclude, a high amount of knowledge regarding quantum physics and mathematics is needed to fully comprehend the inner workings of the code.  
