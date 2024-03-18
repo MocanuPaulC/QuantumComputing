@@ -1,5 +1,14 @@
 # Quantum Reinforcement Learning
 
+> Author: Paul-Cristian Mocanu
+> 
+> Supporting Authors:
+> Peter Buschenreiter, Seifeldin Sabry
+> 
+> KdG Coaches: 
+> Hans Vochten, Geert De Paepe
+> 
+> IBM supervisor: Eric Michiels
 
 ## Table of Contents
 1. [Introduction](#introduction)
