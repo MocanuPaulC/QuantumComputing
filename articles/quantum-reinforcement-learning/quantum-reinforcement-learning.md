@@ -1,5 +1,14 @@
 # Quantum Reinforcement Learning
 
+> Author: Paul-Cristian Mocanu
+> 
+> Supporting Authors:
+> Peter Buschenreiter, Seifeldin Sabry
+> 
+> KdG Coaches: 
+> Hans Vochten, Geert De Paepe
+> 
+> IBM supervisor: Eric Michiels
 
 ## Table of Contents
 1. [Introduction](#introduction)
@@ -19,7 +28,7 @@
 
 ## Introduction
 
-In the rapidly evolving field of artificial intelligence (AI) and machine learning, reinforcement learning (RL) emerges as a powerful paradigm, enabling algorithms to learn optimal actions through trial and error interactions with the environment. Classical reinforcement learning has achieved remarkable successes, from mastering complex games to driving autonomous vehicles.
+In the rapidly evolving field of artificial intelligence (AI) and machine learning, reinforcement learning (RL) emerges as a powerful paradigm, enabling algorithms to learn optimal actions through trial and error interactions with the environment. Classical reinforcement learning has achieved remarkable successes, from mastering complex games to driving autonomous vehicles.
 
 In contrast, quantum computing utilizes principles of quantum mechanics to process information in ways that classical computers cannot, enabling it to tackle complex problems more efficiently.
 
@@ -30,7 +39,7 @@ By leveraging phenomena like superposition and entanglement, it has the potentia
 
 At its core, classical reinforcement learning involves an agent learning to make decisions by interacting with its environment. The agent performs actions, observes the outcomes and rewards, and adjusts its strategy to maximize cumulative rewards over time. 
 
-![Reinforcement learning overview](./RL.png)
+![Reinforcement learning overview](resources/RL.png)
 
 
 This learning process involves evaluating state-action pairs to deduce the action that yields the highest reward, a challenge known as the policy optimization problem. 
@@ -49,12 +58,11 @@ The backbone of quantum reinforcement learning is the quantum circuit, a sequenc
 
 This architecture is suggested by Skolik et al. in their paper on the quantum agents in the gym. While it is prone to fail upon usage of increased amounts of qubits and layers, this does not concern us due to the small nature of the environment.
 
-![A 5 layer quantum circuit based on the Skolik et al. example](./layered_model.png)
+![A 5 layer quantum circuit based on the Skolik et al. example](resources/layered_model.png)
 
 For the Rx gates, we define the following method:
 
-```python
-
+```{.python .numberLines}
 def input_parameters(inputs, num_qubits):
 
     qc = qk.QuantumCircuit(num_qubits)
@@ -66,8 +74,7 @@ def input_parameters(inputs, num_qubits):
     return qc
 ```
 
-```python
-
+```{.python .numberLines}
 def parametrized_circuit(num_qubits = 4, reps = 2, insert_barriers = True, meas = False):
 
     qr = qk.QuantumRegister(num_qubits, 'qr')
@@ -122,8 +129,7 @@ On the other hand, the sampler is focused on generating bitstrings that represen
 
 With this in mind, the obvious choice for our use case was the sampler primitive. 
 
-```python
-
+```{.python .numberLines}
 # Select the number of qubits equal to the number of inputs in the environment
 num_qubits = 4
 
@@ -151,8 +157,7 @@ The culmination of our approach is a hybrid quantum-classical neural network, wh
 
 Two essential components in this integration are the `encoding_layer` and `exp_val_layer`. The `encoding_layer`, a subclass of `torch.nn.Module`, is designed to encode classical data into a quantum circuit simulation. This is achieved by applying parameterized rotations to the input data, a process facilitated by weights initialized between -1 and 1 for each qubit. The forward method of this layer utilizes these weights along with an arctangent function to simulate the encoding process on a quantum register. 
 
-```python
-
+```{.python .numberLines}
 class encoding_layer(torch.nn.Module):
     def __init__(self, num_qubits = 4):
         super().__init__()
@@ -177,8 +182,7 @@ class encoding_layer(torch.nn.Module):
 
 On the other hand, the `exp_val_layer` focuses on calculating expected values within a quantum simulation. Upon initialization, it sets the size of the action space and initializes weights between 35 and 45, while also defining specific masks for calculating expectation values for quantum operations. Its forward method effectively computes these expected values, catering to both individual samples and batches by applying weights and normalizations to the outputs. 
 
-```python
-        
+```{.python .numberLines}
 class exp_val_layer(torch.nn.Module):
     def __init__(self, action_space = 2):
         super().__init__()
@@ -225,7 +229,7 @@ We've gathered all the components required to assemble a hybrid quantum-classica
 The final hybrid model is constructed by sequentially combining the three layers:
 `model` = `encoding_layer` --> `quantum_layer` --> `exp_val_layer`
 
-```python
+```{.python .numberLines}
 quantum_nn = TorchConnector(qnn) # Torch connector provides the weights uniformly from [-1, 1]
 
 # Classical trainable preprocessing
@@ -244,14 +248,13 @@ It has a continuous state space of 4 variables and an discrete action space of 2
 We used the epsilon-greedy policy to sample the actions and the experience replay buffer to store the experiences and sample them for training the model.
 The train method utilizes the Adam optimizer and the Average Mean Squared Error to decrease the loss.
 
-The code can be found [here](#link-to-github) 
-
+The code can be found [here](https://gitlab.com/kdg-ti/the-lab/teams-23-24/idk/quantum-computing/-/blob/main/QuantumRL/hybridqnn.ipynb).
 
 ### Result
 
-The model got trained and managed to surpass 200 steps in an episode but ultimately didn’t achieve an average of at least 195 steps per episode
+The model got trained and managed to surpass 200 steps in an episode but ultimately didn\t achieve an average of at least 195 steps per episode
 
-![A line graph showing the increasing amount of rewards as the model learns from the experienced episodes](./result_graph.png)
+![A line graph showing the increasing amount of rewards as the model learns from the experienced episodes](resources/result_graph.png)
 
 ## Conclusion
 
