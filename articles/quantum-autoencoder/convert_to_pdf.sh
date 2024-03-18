@@ -1,4 +1,4 @@
-pandoc -H disable_float.tex \
+pandoc -H ../quantum-autoencoder/disable_float.tex \
   -f markdown \
   -t pdf \
   -V colorlinks=true \
@@ -7,5 +7,5 @@ pandoc -H disable_float.tex \
   -V toccolor=gray \
   --highlight-style tango \
   $1 \
-  -H break_lines.tex \
+  -H ../quantum-autoencoder/break_lines.tex \
   -o $2
