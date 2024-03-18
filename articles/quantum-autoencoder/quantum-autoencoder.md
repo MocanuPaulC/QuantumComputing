@@ -17,6 +17,8 @@
 - [Quantum Autoencoders](#quantum-autoencoders)
   - [SWAP Test](#swap-test)
 - [Quantum Autoencoder Implementation](#quantum-autoencoder-implementation)
+  - [Implementation introduction](#implementation-introduction)
+  - [Implementation details](#implementation-details)
   - [Results](#results)
   - [Findings and Observations](#findings-and-observations)
 - [Conclusion](#conclusion)
@@ -79,7 +81,7 @@ To start off, we will first need to do some preprocessing on the dataset.
 
 Then we can start building the quantum circuit.
 
-```python
+```{.python .numberLines}
 def auto_encoder_circuit(num_latent, num_trash):
     qr = QuantumRegister(num_latent + 2 * num_trash + 1, "q")
     cr = ClassicalRegister(1, "c")
@@ -108,7 +110,7 @@ It is obviously important that this number is an integer. Therefore, the dimensi
 
 We will try to compress the images from 8 qubits into a lower-dimensional quantum state of 6 qubits. Therefore, our latent space results in 6 qubits and the trash space in 2 qubits. The reference space, auxiliary qubit and the classical register are already included in the circuit as part of the SWAP test.
 
-```python
+```{.python .numberLines}
 num_latent = 6
 num_trash = 2
 
@@ -133,12 +135,12 @@ All of those $R_y$ gates (rotation gates around the y-axis) are the weights of t
 
 All that is left, is to define an interpretation function, a Sampler, an optimizer and a cost function.
     
-```python 
+```{.python .numberLines} 
 def identity_interpret(x):
     return x
 ```
     
-```python
+```{.python .numberLines}
 num_of_digits = 10
 qnn = SamplerQNN(
     circuit=qc,
@@ -148,10 +150,10 @@ qnn = SamplerQNN(
     output_shape=num_of_digits,
 )
 ```
-```python
+```{.python .numberLines}
 opt = COBYLA(maxiter=500)
 ```
-```python
+```{.python .numberLines}
 def cost_func_digits(params_values):
     probabilities = qnn.forward(training_data, params_values)
     cost = np.sum(probabilities[:, 1]) / training_data.shape[0]
@@ -160,7 +162,7 @@ def cost_func_digits(params_values):
 
 We can then use the `cost_func_digits` to train the quantum autoencoder using the `opt` optimizer.
 
-```python
+```{.python .numberLines}
 initial_point = algorithm_globals.random.random(ae.num_parameters)
 opt_result = opt.minimize(fun=cost_func_digits, x0=initial_point)
 ```
@@ -173,7 +175,7 @@ Plotting the objective function will result in the following:
 
 To get the results we build a new quantum circuit, using the same latent and trash space, but this time we reset the reference space to $|0\rangle$.
 
-```python
+```{.python .numberLines}
 test_qc = QuantumCircuit(num_latent + num_trash)
 test_qc = test_qc.compose(fm)
 ansatz_qc = ansatz(num_latent + num_trash)
@@ -191,7 +193,7 @@ Drawing this circuit will result in the following:
 
 We can calculate the fidelity of the reconstructed images with the original images using the following function:
 
-```python
+```{.python .numberLines}
 def calculate_fidelity(sv1: np.ndarray, sv2: np.ndarray) -> float:
     return np.sqrt(np.dot(sv1.flatten().conj(), sv2.flatten()) ** 2)
 ```
