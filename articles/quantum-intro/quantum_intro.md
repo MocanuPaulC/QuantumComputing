@@ -15,13 +15,14 @@
   - [Quantum Bits (Qubits)](#quantum-bits-qubits)
   - [Superposition: The Heart of Quantum Computing](#superposition-the-heart-of-quantum-computing)
   - [Entanglement: Quantum Computing's Secret Weapon](#entanglement-quantum-computings-secret-weapon)
+  - [Decoherence: The Enemy](#decoherence-the-enemy)
   - [Quantum Gates: The Building Blocks of Quantum Computing](#quantum-gates-the-building-blocks-of-quantum-computing)
   - [Quantum Circuits: Choreographing Quantum Computation](#quantum-circuits-choreographing-quantum-computation)
-  - [Qiskit](#qiskit)
-  - [Introduction to Quantum Machine Learning (QML)](#introduction-to-quantum-machine-learning-qml)
-    - [Quantum Gates as Machine Learning Models](#quantum-gates-as-machine-learning-models)
-    - [Entanglement in Machine Learning Models](#entanglement-in-machine-learning-models)
-    - [The Advantages of Quantum Over Classical Computing](#the-advantages-of-quantum-over-classical-computing)
+- [Qiskit](#qiskit)
+- [Introduction to Quantum Machine Learning (QML)](#introduction-to-quantum-machine-learning-qml)
+  - [Quantum Gates as Machine Learning Models](#quantum-gates-as-machine-learning-models)
+  - [Entanglement in Machine Learning Models](#entanglement-in-machine-learning-models)
+  - [The Advantages of Quantum Over Classical Computing](#the-advantages-of-quantum-over-classical-computing)
 - [Why Investigate Quantum Computing?](#why-investigate-quantum-computing)
 - [What's next?](#whats-next)
 
@@ -73,6 +74,17 @@ allowing secure communication that is theoretically immune to eavesdropping.
 Additionally, entanglement enhances quantum error correction, 
 providing a way to protect quantum information from the effects of decoherence and other errors, 
 which is vital for the development of reliable quantum computers.
+
+### Decoherence: The Enemy
+Decoherence is a critical obstacle in quantum computing, 
+stemming from unwanted interactions between qubits and their environment. 
+These interactions cause qubits to lose their quantum properties, 
+such as superposition and entanglement, reducing them to classical states. 
+Essentially, decoherence disrupts the delicate quantum states that are crucial for quantum computations, 
+leading to errors and loss of information. 
+
+Overcoming this challenge is vital for the development of effective quantum computers, 
+necessitating advanced techniques for isolating qubits from environmental interference and devising robust error correction methods.
 
 
 ### Quantum Gates: The Building Blocks of Quantum Computing
@@ -155,7 +167,7 @@ critical to achieving the operational goals of quantum computing,
 from secure communication and efficient data analysis to solving previously intractable problems.
 
 
-### Qiskit
+## Qiskit
 [Qiskit](https://www.ibm.com/quantum/qiskit), an open-source quantum computing software development framework, 
 offers tools for creating and manipulating quantum circuits. 
 It serves as a bridge for programmers to experiment with quantum algorithms without needing a deep background in quantum physics. 
@@ -193,14 +205,14 @@ such as simulating quantum physical processes, optimizing large systems, and bre
 Quantum computing introduces new paradigms in machine learning, 
 including the ability to process and analyze high-dimensional data more efficiently. 
 
-### Why Investigate Quantum Computing?
+## Why Investigate Quantum Computing?
 The decision to explore quantum computing was fundamentally strategic, 
 aimed at harnessing the anticipated theoretical advantages that quantum mechanics offers for computational power. 
 At its core, the venture into quantum computing was motivated by the promise of achieving capabilities far beyond 
 what is possible with classical computers. 
 
 Theories predict that quantum computing can process information at an unprecedented scale and speed,
-offering solutions to problems considered intractable by today's standards. 
+offering solutions to problems considered impossible by today's standards. 
 This potential for quantum advantage drove us to investigate.
 
 Embracing quantum computing was about seizing an opportunity to leap ahead, 
@@ -216,7 +228,7 @@ to capitalize on the quantum leap expected from applying the principles of quant
 Our exploration was rooted in the belief that the first to unlock these capabilities could redefine the landscape of
 computational power, gaining a monumental advantage in solving some of humanity's most pressing challenges.
 
-### What's next?
+## What's next?
 
 Dive deeper into the transformative potential of quantum computing within the realm of machine learning by 
 exploring our trio of specialized articles on [quantum auto-encoders](https://shorturl.at/ovwKO), 
