@@ -260,6 +260,7 @@ The model got trained and managed to surpass 200 steps in an episode but ultimat
 
 While there is a lot of promise in quantum computing and its applications in machine learning,
 it is quite obvious to us that it is not a mature technology yet and does not provide a solid base for developing proper solutions. 
-During our experience with this technology, we encountered a mountain of deprecated code with no clear substitution. 
-Furthermore, the abstractions provided by qiskit seem to complicate the process instead of making it easier for a person with less knowledge.
-To conclude, a high amount of knowledge regarding quantum physics and mathematics is needed to fully comprehend the inner workings of the code.  
+During my experience with this technology, I encountered a lot of deprecated code with no clear substitution. 
+Furthermore, the abstractions provided by qiskit seem to complicate the process for reinforcement learning instead of making it easier for a person with less knowledge.
+One such problem was the `TorchConnector` which, at the time of writing the article, had a few bugs that made the experience cumbersome. 
+To conclude, from my point of view, a high amount of knowledge regarding quantum physics and mathematics is needed to fully comprehend the inner workings of the code.
