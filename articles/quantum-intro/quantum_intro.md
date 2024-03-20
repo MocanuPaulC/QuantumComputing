@@ -129,7 +129,7 @@ certain qubits are not possible due to physical constraints.
 - **Rotation Gates (Rx, Ry, Rz):** These gates rotate qubits around the x, y, and z axes on the Bloch sphere, respectively. 
 [The Bloch sphere](https://en.wikipedia.org/wiki/Bloch_sphere) is a representation of the state space of a qubit, 
 and rotations on the sphere change the state of the qubit. 
-Each gate takes an angle θ as a parameter and applies a rotation by θ radians about its respective axis.
+Each gate takes an angle $\theta$ as a parameter and applies a rotation by $\theta$ radians about its respective axis.
 
 
 - **Rx Gate:** Rotates a qubit around the x-axis. 
