@@ -195,8 +195,10 @@ class exp_val_layer(torch.nn.Module):
         torch.nn.init.uniform_(self.weights, 35,45) # <-- Initialization strategy (heuristic choice)
         print(self.weights)
         # Masks that map the vector of probabilities to <Z_0*Z_1> and <Z_2*Z_3>
-        self.mask_ZZ_12 = torch.tensor([1.,-1.,-1.,1.,1.,-1.,-1.,1.,1.,-1.,-1.,1.,1.,-1.,-1.,1.], requires_grad = False)
-        self.mask_ZZ_34 = torch.tensor([-1.,-1.,-1.,-1.,1.,1.,1.,1.,-1.,-1.,-1.,-1.,1.,1.,1.,1.], requires_grad = False)
+        self.mask_ZZ_12 = torch.tensor([1.,-1.,-1.,1.,1.,-1.,-1.,1.,
+        1.,-1.,-1.,1.,1.,-1.,-1.,1.], requires_grad = False)
+        self.mask_ZZ_34 = torch.tensor([-1.,-1.,-1.,-1.,1.,1.,1.,1.,
+        -1.,-1.,-1.,-1.,1.,1.,1.,1.], requires_grad = False)
         
     def forward(self, x):
         """Forward step, as described above."""
