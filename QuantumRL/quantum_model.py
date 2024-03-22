@@ -1,10 +1,12 @@
+from gymnasium.envs.classic_control import CartPoleEnv
 from qiskit import QuantumCircuit
+import qiskit as qk
+import numpy as np
 from qiskit_machine_learning.connectors import TorchConnector
 from qiskit_machine_learning.neural_networks import SamplerQNN
 from qiskit.circuit import ParameterVector
 from torch import Tensor
 import torch
-
 
 
 def one_qubit_rotation(qc, weights, gate_types_per_layer, enable_rx=True, enable_ry=True, enable_rz=True):
@@ -32,7 +34,7 @@ def one_qubit_rotation(qc, weights, gate_types_per_layer, enable_rx=True, enable
         raise ValueError("The number of weights does not match the number of enabled gates times the number of qubits")
 
     for qubit in qc.qubits:
-        index = qubit.index
+        index = qc.qubits.index(qubit)
         weight_index = 0  # Initialize weight index for each qubit
 
         if enable_rx:
@@ -53,12 +55,10 @@ def entangling_layer(qc: QuantumCircuit):
     Adds a layer of CZ entangling gates (controlled-Z) on `qubits` (arranged in a circular topology) to the quantum circuit.
     """
     # Assume `qc` is your QuantumCircuit object that's defined outside this function
-    for i in range(qc.num_qubits - 1):
-        qc.cz(i, i + 1)  # Apply CZ between consecutive qubits
     if qc.num_qubits > 2:  # If more than 2 qubits, connect the first and last qubits to form a circle
         qc.cz(0, qc.num_qubits - 1)
-
-
+    for i in range(qc.num_qubits - 1):
+        qc.cz(i, i + 1)  # Apply CZ between consecutive qubits
 
 def generate_circuit(qc, n_layers, enable_rx=True, enable_ry=True, enable_rz=True):
     """Prepares a data re-uploading circuit on `qubits` with `n_layers` layers."""
@@ -86,7 +86,6 @@ def generate_circuit(qc, n_layers, enable_rx=True, enable_ry=True, enable_rz=Tru
     for i in range(n_layers):
         for j in range(n_qubits):
             qc.rx(inputs[j], j)
-        qc.barrier()
         # Variational layer
         if i == 0:
             one_qubit_rotation(qc, params[0:gate_types_per_layer * n_qubits], gate_types_per_layer=gate_types_per_layer,
@@ -96,19 +95,12 @@ def generate_circuit(qc, n_layers, enable_rx=True, enable_ry=True, enable_rz=Tru
                                params[i * gate_types_per_layer * n_qubits:(i + 1) * gate_types_per_layer * n_qubits],
                                gate_types_per_layer=gate_types_per_layer, enable_rx=enable_rx, enable_ry=enable_ry,
                                enable_rz=enable_rz)
-        qc.barrier()
         entangling_layer(qc)
-        # Encoding layer
-        qc.barrier()
 
-    for i in range(n_qubits):
-        qc.rx(inputs[i], i)
-    one_qubit_rotation(qc, params[
-                           n_layers * gate_types_per_layer * n_qubits:(n_layers + 1) * gate_types_per_layer * n_qubits],
-                       gate_types_per_layer=gate_types_per_layer, enable_rx=enable_rx, enable_ry=enable_ry,
-                       enable_rz=enable_rz)
+    return qc, list(inputs)
 
-    return qc, list(params), list(inputs)
+
+
 
 
 class encoding_layer(torch.nn.Module):
@@ -167,16 +159,33 @@ class exp_val_layer(torch.nn.Module):
 
         return self.weights * ((out + 1.) / 2.)
 
-def get_quantum_neural_network(n_qubits=3,n_layers=1, enable_rx=True, enable_ry=True, enable_rz=True):
+
+def get_quantum_neural_network(n_qubits=4, n_layers=8, enable_rx=False, enable_ry=True, enable_rz=True):
     qc = QuantumCircuit(n_qubits)
-    circuit,params, inputs  = generate_circuit(qc, n_layers, enable_rx=enable_rx, enable_ry=enable_ry,
+    circuit, inputs = generate_circuit(qc, n_layers, enable_rx=enable_rx, enable_ry=enable_ry,
                                                enable_rz=enable_rz)
+    # The remaining ones are the trainable weights of the quantum neural network
+    params = list(qc.parameters)[n_qubits:]
 
-    samplerQNN=SamplerQNN(circuit=qc, input_params=inputs, weight_params=params)
+    samplerQNN = SamplerQNN(circuit=qc, input_params=inputs, weight_params=params)
     qnn = TorchConnector(samplerQNN)
-    encoding=encoding_layer(n_qubits)
+    encoding = encoding_layer(n_qubits)
 
-    exp_val=exp_val_layer()
+    exp_val = exp_val_layer()
 
     model = torch.nn.Sequential(encoding, qnn, exp_val)
     return model
+
+def epsilon_greedy_policy(state, epsilon=0,model=None):
+    if np.random.rand() < epsilon:
+        return np.random.randint(2)
+    else:
+        with torch.no_grad():
+            Q_values = model(Tensor(state)).numpy()
+        return np.argmax(Q_values)
+
+
+def play_one_step(env, state, epsilon,model):
+    action = epsilon_greedy_policy(state, epsilon,model)
+    next_state, reward, done,truncated, info = env.step(action)
+    return next_state, reward, done,truncated, info
