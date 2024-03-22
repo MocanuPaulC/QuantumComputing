@@ -243,7 +243,7 @@ This could indicate a bias towards those sorts of shapes in the training data.
 
 ## Conclusion
 
-This technology is still in its infancy and has a long way to go before it can be used in a practical setting. However, it is a very promising technology and has the potential to revolutionize the field of data compression. Quantum autoencoders are a very exciting area of research and have the potential to be a game-changer in the field of quantum machine learning. We unfortunately were not able to test this on a real quantum computer, but we are confident that the results would have been much better.
+This technology is still in its infancy and has a long way to go before it can be used in a practical setting. However, it is a very promising technology and has the potential to revolutionize the field of data compression. Quantum autoencoders are a very exciting area of research and have the potential to be a game-changer in the field of quantum machine learning. We unfortunately were not able to test this on a real quantum computer, but we are confident that, with the appropriate error mitigation techniques, the results would have been much better.
 
 ## References
 
