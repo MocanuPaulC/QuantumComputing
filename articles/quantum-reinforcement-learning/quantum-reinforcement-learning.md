@@ -24,6 +24,7 @@
    - [Environment Setup](#environment-setup)
    - [Result](#result)
 4. [Conclusion](#conclusion)
+5. [References](#references)
 
 
 ## Introduction
@@ -194,8 +195,10 @@ class exp_val_layer(torch.nn.Module):
         torch.nn.init.uniform_(self.weights, 35,45) # <-- Initialization strategy (heuristic choice)
         print(self.weights)
         # Masks that map the vector of probabilities to <Z_0*Z_1> and <Z_2*Z_3>
-        self.mask_ZZ_12 = torch.tensor([1.,-1.,-1.,1.,1.,-1.,-1.,1.,1.,-1.,-1.,1.,1.,-1.,-1.,1.], requires_grad = False)
-        self.mask_ZZ_34 = torch.tensor([-1.,-1.,-1.,-1.,1.,1.,1.,1.,-1.,-1.,-1.,-1.,1.,1.,1.,1.], requires_grad = False)
+        self.mask_ZZ_12 = torch.tensor([1.,-1.,-1.,1.,1.,-1.,-1.,1.,
+        1.,-1.,-1.,1.,1.,-1.,-1.,1.], requires_grad = False)
+        self.mask_ZZ_34 = torch.tensor([-1.,-1.,-1.,-1.,1.,1.,1.,1.,
+        -1.,-1.,-1.,-1.,1.,1.,1.,1.], requires_grad = False)
         
     def forward(self, x):
         """Forward step, as described above."""
@@ -252,15 +255,28 @@ The code can be found [here](https://gitlab.com/kdg-ti/the-lab/teams-23-24/idk/q
 
 ### Result
 
-The model got trained and managed to surpass 200 steps in an episode but ultimately didn\t achieve an average of at least 195 steps per episode
+The model got trained and managed to surpass 200 steps in an episode and ultimately achieved an average of 193 steps per episode during the training.
 
 ![A line graph showing the increasing amount of rewards as the model learns from the experienced episodes](resources/result_graph.png)
+![A second line graph showing the increasing amount of rewards as the model learns from the experienced episodes](resources/result_graph2.png)
+
+However, once the training was stopped and the model was tested, it was capable of achieving an average of around 330 steps per episode.
+This truly shows the power of quantum computing in reinforcement learning as it conquered the CartPole challenge with ease.
+
+![Line graph showing the model's performance after training](resources/valid_graph.png)
+
 
 ## Conclusion
 
-While there is a lot of promise in quantum computing and its applications in machine learning,
-it is quite obvious to us that it is not a mature technology yet and does not provide a solid base for developing proper solutions. 
+This shows us that there is a lot of promise in quantum computing and its applications in machine learning,
+it is quite obvious to us that it is a bold technology and proper solutions require perseverance and a lot of trial and error. 
 During my experience with this technology, I encountered a lot of deprecated code with no clear substitution. 
 Furthermore, the abstractions provided by qiskit seem to complicate the process for reinforcement learning instead of making it easier for a person with less knowledge.
 One such problem was the `TorchConnector` which, at the time of writing the article, had a few bugs that made the experience cumbersome. 
 To conclude, from my point of view, a high amount of knowledge regarding quantum physics and mathematics is needed to fully comprehend the inner workings of the code.
+
+
+## References
+
+Skolik, A., Jerbi, S., & Dunjko, V. (2021). Quantum agents in the Gym: a variational quantum algorithm for deep Q-learning. arXiv preprint arXiv:2103.15084. Retrieved from https://arxiv.org/abs/2103.15084
+
