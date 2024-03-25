@@ -38,6 +38,22 @@ The exploration of quantum computing is driven by its potential to solve complex
 that are currently intractable for classical computers, 
 presenting a significant leap in computational capabilities.
 
+
+### Disclaimer
+This article is an introduction to quantum computing and its applications in machine learning.
+It aims to provide a foundational understanding of quantum computing principles,
+quantum gates, and quantum circuits, as well as their relevance to machine learning models.
+For a more in-depth exploration of quantum computing and its advanced applications,
+we recommend further study of quantum algorithms, quantum error correction, and quantum machine learning techniques.
+
+The inner workings of quantum computing are complex and require a solid understanding of quantum mechanics,
+linear algebra, and quantum information theory to fully grasp the intricacies of quantum algorithms and their implementations.
+We encourage readers to delve deeper into these topics to gain a comprehensive understanding of quantum computing.
+
+However, this article serves as a starting point for those interested in exploring the transformative potential of quantum computing
+and its applications in machine learning, data analysis, and computational modeling.
+Everything required to understand the following articles is covered in this introduction.
+
 ## Fundamentals of Quantum Computing
 ### Quantum Bits (Qubits)
 At the heart of quantum computing lies the quantum bit, or qubit, 
@@ -59,6 +75,10 @@ rather than processing each state one by one.
 Superposition enables quantum computers to perform a vast number of calculations simultaneously, 
 dramatically increasing their processing power for certain tasks, such as factoring large numbers, 
 searching databases, and simulating quantum physical processes.
+
+Observing a qubit in superposition collapses its state to a definite value based on the probabilities 
+of the superposed states. This process, known as quantum measurement, 
+is essential for extracting information from quantum systems and obtaining meaningful results from quantum computations.
 
 ### Entanglement: Quantum Computing's Secret Weapon
 Entanglement is another quantum phenomenon that plays a crucial role in the power of quantum computing. 
@@ -155,7 +175,7 @@ enabling parallel processing of information and the execution of complex algorit
 
 The design of a quantum circuit involves strategically placing quantum gates to manipulate qubit states and their entanglements, 
 aiming to solve specific problems. 
-For instance, a quantum algorithm for factoring large numbers, such as Shor's algorithm, 
+For instance, a quantum algorithm for factoring large numbers, such as [Shor's algorithm](https://en.wikipedia.org/wiki/Shor%27s_algorithm), 
 requires a carefully designed quantum circuit that can exploit quantum mechanics to perform tasks exponentially faster than classical algorithms. 
 Similarly, quantum circuits for quantum machine learning models use specific arrangements of gates to 
 optimize and execute algorithms that can analyze and model complex datasets beyond the capabilities of classical computing.
@@ -176,7 +196,7 @@ such as the Hadamard gate that creates superposition or the CNOT gate that entan
 laying the groundwork for quantum computing applications in machine learning and beyond.
 
 ## Introduction to Quantum Machine Learning (QML)
-Quantum Machine Learning amalgamates quantum computing with machine learning, 
+Quantum Machine Learning blends quantum computing with machine learning, 
 aiming to leverage quantum mechanics to enhance computational models. 
 QML exploits the unique properties of quantum systems to develop algorithms with capabilities beyond the reach of classical computing.
 
@@ -231,10 +251,9 @@ computational power, gaining a monumental advantage in solving some of humanity'
 ## What's next?
 
 Dive deeper into the transformative potential of quantum computing within the realm of machine learning by 
-exploring our trio of specialized articles on [quantum auto-encoders](https://shorturl.at/ovwKO), 
-[quantum regression](https://shorturl.at/dls49), 
-and [quantum reinforcement learning](https://shorturl.at/dtG24). 
+exploring our trio of specialized articles on [quantum auto-encoders](https://medium.com/@peter.buschenreiter/quantum-autoencoder-26971489c02a), 
+[quantum regression](https://medium.com/@seifeldin.sabry/quantum-neural-networks-forecasting-apple-stock-1d652a95fecf), 
+and [quantum reinforcement learning](https://medium.com/@cristi.mocanu25/quantum-reinforcement-learning-18b5083f80c0). 
 Each piece is crafted to unravel the complexities and applications of these advanced quantum computing techniques in 
 enhancing predictive modeling, data analysis, and decision-making processes. 
-Join us on this journey into the quantum realm by reading our articles on the mentioned use cases.
 
