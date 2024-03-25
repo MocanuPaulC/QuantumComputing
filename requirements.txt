@@ -16,6 +16,7 @@ cachetools==5.3.3
 certifi==2024.2.2
 cffi==1.16.0
 charset-normalizer==3.3.2
+cloudpickle==3.0.0
 comm==0.2.1
 contourpy==1.2.0
 cryptography==42.0.5
@@ -27,16 +28,20 @@ dill==0.3.8
 docplex==2.25.236
 exceptiongroup==1.2.0
 executing==2.0.1
+Farama-Notifications==0.0.4
 fastdtw==0.3.4
 fastjsonschema==2.19.1
+filelock==3.13.1
 flatbuffers==23.5.26
 fonttools==4.48.1
 fqdn==1.5.1
+fsspec==2024.3.1
 gast==0.5.4
 google-auth==2.28.1
 google-auth-oauthlib==1.2.0
 google-pasta==0.2.0
 grpcio==1.62.0
+gymnasium==0.29.1
 h5py==3.10.0
 ibm-cloud-sdk-core==3.19.1
 ibm-platform-services==0.51.0
@@ -64,6 +69,7 @@ jupyterlab==4.0.12
 jupyterlab_pygments==0.3.0
 jupyterlab_server==2.25.2
 jupyterlab_widgets==3.0.10
+keras==2.15.0
 kiwisolver==1.4.5
 libclang==16.0.6
 Markdown==3.5.2
@@ -106,6 +112,7 @@ pyasn1-modules==0.3.0
 pycparser==2.21
 pydantic==2.6.3
 pydantic_core==2.16.3
+pygame==2.5.2
 Pygments==2.17.2
 PyJWT==2.8.0
 pylatexenc==2.10
@@ -159,6 +166,7 @@ terminado==0.18.0
 threadpoolctl==3.2.0
 tinycss2==1.2.1
 tomli==2.0.1
+torch==2.2.1
 tornado==6.4
 traitlets==5.14.1
 types-python-dateutil==2.8.19.20240106
@@ -173,5 +181,4 @@ websocket-client==1.7.0
 websockets==12.0
 Werkzeug==3.0.1
 widgetsnbextension==4.0.10
-keras~=2.15.0
 wrapt==1.14.1

@@ -31,13 +31,13 @@ The goal of this article is to give a general understanding of autoencoders, bot
 
 ## Classical Autoencoders
 
-Autoencoders are a type of neural network that can be used to compress data. They consist of two parts, an encoder and a decoder. The encoder takes the input data and compresses it into a lower-dimensional representation, called the latent space. The decoder then takes this lower-dimensional representation and tries to reconstruct the original input data. The goal is to have the reconstructed data be as close as possible to the original input data. The encoder and decoder are trained together, so that the decoder learns to reconstruct the original data from the lower-dimensional representation that the encoder produces.
+Autoencoders are a type of neural network that can be used to compress data. They consist of two parts, an encoder and a decoder. The encoder takes the input data and compresses it into a lower-dimensional representation. The decoder then takes this lower-dimensional representation and tries to reconstruct the original input data. The goal is to have the reconstructed data be as close as possible to the original input data. The encoder and decoder are trained together, so that the decoder learns to reconstruct the original data from the lower-dimensional representation that the encoder produces.
 
 ![Classical Autoencoder architecture](resources/classical-autoencoder.png)
 
 ## Quantum Autoencoders
 
-Quantum autoencoders are a type of quantum circuit that can also be used to compress data. They are similar to classical autoencoders in that they also consist of two parts, an encoder and a decoder. The encoder takes the input data and compresses it into a lower-dimensional representation, called the latent space. Different from classical autoencoders, the encoder and decoder are quantum circuits, and the latent space is a quantum state. The decoder then takes this quantum state and tries to reconstruct the original input data into a smaller amount of qubits. Just like in classical autoencoders, the goal is to have the reconstructed data be as close as possible to the original input data and the encoder and decoder are trained together, so that the decoder learns to reconstruct the original data from the quantum state that the encoder produces.
+Quantum autoencoders are a type of quantum circuit that can also be used to compress data. They are similar to classical autoencoders in that they also consist of two parts, an encoder and a decoder. The encoder takes the input data and compresses it into a lower-dimensional representation, called the latent space, sometimes referred to as the bottleneck layer. Different from classical autoencoders, the encoder and decoder are quantum circuits, and the latent space is a quantum state. The decoder then takes this quantum state and tries to reconstruct the original input data from a smaller amount of qubits. Just like in classical autoencoders, the goal is to have the reconstructed data be as close as possible to the original input data by training the encoder and decoder together, so that the decoder learns to reconstruct the original data from the quantum state that the encoder produces
 
 ![Quantum Autoencoder architecture](resources/quantum-autoencoder.png)
 
@@ -48,7 +48,7 @@ In the picture above, the quantum autoencoder is represented as a quantum circui
 The quantum autoencoder consists of the following parts:
 
 - **Latent space**: The latent space is a quantum state that is produced by the encoder. It is a lower-dimensional representation of the input data, similar to the latent space in classical autoencoders. It maps one-to-one to the smallest layer of the classical autoencoder.
-- **Trash space**: The trash space is a quantum state that gets used up by the encoder, by performing the so-called SWAP test. We will cover that later in more detail. Latent space and trash space together is the input state.
+- **Trash space**: The trash space is a quantum state that gets used up by the encoder, by performing the so-called SWAP test. We will cover that later in more detail. The input state of the autoencoder consists of the trash space and the latent space.
 - **Reference space**: The reference space is a quantum state that is used by the decoder to reconstruct the original input data. It is important to already have the reference space, along with the auxiliary qubit and the classical register included in the circuit even though it is not used by the encoder, but only by the decoder. This is because the encoder and decoder are trained together, and the reference space is part of the quantum state that the encoder produces. The reference space is also a vital piece to the SWAP test.
 - **Auxiliary qubit**: The auxiliary qubit is the final piece of the puzzle to perform the SWAP test.
 - **Classical register**: The classical register is used to measure the auxiliary qubit. 
@@ -74,10 +74,11 @@ To implement a quantum autoencoder, we will use the Qiskit framework. Qiskit is 
 ### Implementation details
 
 To start off, we will first need to do some preprocessing on the dataset. 
-1. Normalize the pixel values to be between 0 and 1.
-2. Resize the images to be 16x16 pixels, to reduce the number of qubits needed to represent the images.
-3. Flatten the images into a 1D array, to be used as input to the quantum autoencoder.
-4. Grab the first 50 images of each digit.
+1. Grab the first 50 images of each digit.
+2. Normalize the pixel values to be between 0 and 1.
+3. Resize the images to be 16x16 pixels, to reduce the number of qubits needed to represent the images.
+4. Flatten the images into a 1D array, to be used as input to the quantum autoencoder.
+
 
 Then we can start building the quantum circuit.
 
@@ -127,7 +128,7 @@ Drawing this circuit will result in the following:
 
 ![Quantum Autoencoder circuit](resources/quantum-autoencoder-circuit.png)
 
-Decomposing the block labelled "ReaLAmplitudes", known as the `ansatz` will result in the following:
+Decomposing the block labeled "RealAmplitudes", known as the `ansatz` will result in the following:
 
 ![Quantum Autoencoder ansatz](resources/ansatz.png)
 
@@ -191,7 +192,7 @@ Drawing this circuit will result in the following:
 
 ![Quantum Autoencoder test circuit](resources/quantum-autoencoder-test-circuit.png)
 
-We can calculate the fidelity of the reconstructed images with the original images using the following function:
+We can calculate the fidelity, a measurement of the similarity of the reconstructed data with the original data using the following function:
 
 ```{.python .numberLines}
 def calculate_fidelity(sv1: np.ndarray, sv2: np.ndarray) -> float:
@@ -243,7 +244,10 @@ This could indicate a bias towards those sorts of shapes in the training data.
 
 ## Conclusion
 
-This technology is still in its infancy and has a long way to go before it can be used in a practical setting. However, it is a very promising technology and has the potential to revolutionize the field of data compression. Quantum autoencoders are a very exciting area of research and have the potential to be a game-changer in the field of quantum machine learning. We unfortunately were not able to test this on a real quantum computer, but we are confident that the results would have been much better.
+This technology is still in its infancy and has a long way to go before it can be used in a practical setting. However, it is a very promising technology and has the potential to revolutionize the field of data compression. Quantum autoencoders are a very exciting area of research and have the potential to be a game-changer in the field of quantum machine learning. We unfortunately were not able to test this on a real quantum computer, but we are confident that, with the appropriate error mitigation techniques, the results would have been much better. If you would like to read more about this topic, my co-authors published articles to their own use cases.
+
+- Paul-Cristian Mocanu: [Quantum Reinforcement Learning on the Cart-Pole Problem](https://medium.com/@cristi.mocanu25/quantum-reinforcement-learning-18b5083f80c0)
+- Seifeldin Sabry: [Quantum Neural Networks - Forecasting Apple Stock Prices](https://medium.com/@seifeldin.sabry/quantum-neural-networks-forecasting-apple-stock-1d652a95fecf)
 
 ## References
 
