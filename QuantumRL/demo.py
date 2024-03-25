@@ -15,11 +15,11 @@ def demo(trained: bool):
     else:
         model = qm.get_quantum_neural_network(4, 8)
     env = gymnasium.make("CartPole-v1", render_mode="human")
-    for episode in range(100):
+    for episode in range(10000):
         obs = env.reset()
         if isinstance(obs, tuple):
             obs = obs[0]
-        for step in range(800):
+        for step in range(80000):
             epsilon = 0
             obs, reward, done, truncated, info = qm.play_one_step(env, obs, epsilon, model)
             if isinstance(obs, tuple):
