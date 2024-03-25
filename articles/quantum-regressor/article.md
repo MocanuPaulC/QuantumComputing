@@ -92,39 +92,7 @@ Before introducing quantum regressors, it is important to grasp these important 
 What are classical regressors?
 Knowledge of classical methods in AI is a prerequisite, however, for a refresher please refer to [this introduction into classical models](https://arunp77.medium.com/regression-algorithms-29f112797724)
 
-What is a quantum circuit?
-A quantum circuit is a computational model used in quantum computing to represent and manipulate quantum information. It consists of quantum gates applied to qubits, the fundamental units of quantum information. Quantum gates are analogous to classical logic gates but operate on qubits using principles of quantum mechanics such as superposition and entanglement.
-
-Simply put, a quantum circuit is a graphical representation of a quantum algorithm
-where qubits are represented by horizontal lines and time flows from left to right:
-
-![Quantum Circuit Example](./resources/img_5.png)
-
-In a quantum circuit:
-
-- Qubits: These are the building blocks of quantum computation, analogous to classical bits but with the ability to exist in a superposition of states. A qubit can be in a state representing both 0 and 1 simultaneously until measured.
-
-- Quantum Gates: These are operations applied to qubits to perform computations. Common quantum gates include Hadamard gate (creates superposition), Pauli gates (X, Y, Z), CNOT gate (entangles qubits), and others.
-
-- Entanglement: Quantum circuits can create entanglement between qubits, a phenomenon where the state of one qubit depends on the state of another, even if they are physically separated. This property enables quantum circuits to perform parallel computations and provide computational advantages over classical circuits.
-
-- Measurement: At the end of a quantum circuit, qubits are measured to obtain classical output. Measurement causes the superposition of states to collapse into classical bits, providing the result of the computation.
-
-What is Qiskit?
-Qiskit is an open-source quantum computing software development framework developed by IBM. It provides tools for working with quantum circuits, quantum algorithms, and quantum simulators. Qiskit allows researchers, developers, and enthusiasts to explore and experiment with quantum computing concepts and applications.
-
-Key components of Qiskit include:
-
-Qiskit Terra: This component provides the foundational elements for quantum computing in Qiskit. It includes tools for creating quantum circuits, simulating quantum circuits on classical computers, and compiling quantum circuits for execution on real quantum hardware.
-
-Qiskit Aer: Qiskit Aer is a high-performance simulator for quantum circuits. It allows users to simulate quantum circuits with noise models, enabling the study of quantum algorithms in realistic conditions.
-
-So why look into Quantum Regressors?
-Predicting stock price is solely based on statistics, machine learning algorithms and analysis of time-series data. The limitations here are when introduced to large historical datasets.
-This is where quantum computing comes in. Quantum Mechanics such as Entanglement and Superposition can be used to solve complex problems at an exponential speed compared to classical computing.
-
-In the following expirements, several Quantum neural network models will be evaluated. Apple's stock data is large with over 10000 rows, so this is where quantum should prove an advantage. 
-___
+For knowledge of basic quantum computing concepts, please refer to our [Introduction to Quantum Computing Article](https://medium.com/@cristi.mocanu25/e60d34bd52fe)
 
 Now to get into the first experiment of this research. First experiment was trying Qiskit tutorials applying different Quantum models on real datasets or mock dataset.
 Following [this tutorial](https://qiskit-community.github.io/qiskit-machine-learning/tutorials/02_neural_network_classifier_and_regressor.html)
@@ -193,7 +161,7 @@ Theoretically, we should see better results with Quantum Annealing, but this is 
 To observe, Quantum Annealing performed worse than PCA in some cases. And of course, the results are overall better classically due to the maturity of the classical algorithms.
 
 ## Variational Quantum Neural Network Implementation
-Since the Qiskit library didn't quite provide the results necessary, at least in a reasonable time, one option was to research and try to implement a hybrid model.
+Since the Qiskit library didn't quite provide the results necessary, at least in a reasonable time, one option was to research and try to implement a hybrid model. Thanks to the research done by [TensorFlow Variational Quantum Neural Networks in Finance](https://developers.lseg.com/en/article-catalog/article/tensorflow-variational-quantum-neural-networks-in-finance), this was possible.
 A hybrid model will utilise both classical and quantum algorithms to solve a problem. The use of a hybrid model can provide the best of both worlds, combining the strengths of classical and quantum computing to solve complex problems more efficiently and accurately than either approach alone.
 
 The architecture is very straightforward:
@@ -267,7 +235,7 @@ The reason Tensorflow was used is to enable the ability of GPU processing, and t
 To conclude this research, the use of quantum computing in finance, and in particular, in predicting stock prices is still in its early stages.
 The findings that have been made by researchers apply theories that have been around since the 2000s, but the application of said theory is only recently being put into practice.
 
-The results are not promising. But given how early quantum computing is, it is not a surprise, and it is only a matter of time before the technology catches up to the theory given how fast it is evolving.
+The results, for how early quantum is, looks promising. we can appreciate the strides being made in integrating quantum techniques into financial prediction models. Such research sheds light on novel approaches and methodologies that leverage quantum computing's unique properties to address longstanding challenges in finance. Given how early quantum computing is, it is only a matter of time before the technology catches up to the theory given how fast it is evolving.
 The more leaps and bounds that are made in the field of quantum computing, the more likely it is that we will see a quantum computer that can predict stock prices with a high degree of accuracy.
 
 ## References
@@ -275,3 +243,4 @@ The more leaps and bounds that are made in the field of quantum computing, the m
 - [TensorFlow Variational Quantum Neural Network in Finance](https://developers.lseg.com/en/article-catalog/article/tensorflow-variational-quantum-neural-networks-in-finance)
 - [QuantumLeap: Hybrid quantum neural network for financial predictions](https://www.sciencedirect.com/science/article/pii/S0957417422000720)
 - [The Potential of Quantum Techniques for Stock Price Prediction](https://arxiv.org/pdf/2308.13642.pdf)
+- [Unveiling Quantum Computing: The Future of Machine Learning](https://medium.com/@cristi.mocanu25/e60d34bd52fe)
